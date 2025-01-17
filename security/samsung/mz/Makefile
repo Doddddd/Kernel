@@ -1,4 +1,4 @@
-$(info MZ kernel makefile lego $$CONFIG_MEMORY_ZEROISATION is [${CONFIG_MEMORY_ZEROISATION}])
+$(info info: MZ kernel makefile lego $$CONFIG_MEMORY_ZEROISATION is [${CONFIG_MEMORY_ZEROISATION}])
 obj-$(CONFIG_MEMORY_ZEROISATION) += mz_ioctl.o mz.o mz_crypto.o mz_mem.o mz_log.o
 ccflags-$(CONFIG_MEMORY_ZEROISATION) += -Wno-error \
 	-Wno-unused \
