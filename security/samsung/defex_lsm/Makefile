@@ -26,7 +26,7 @@ else
 endif
 
 ifneq ($(wildcard $(srctree)/include/crypto/internal/rsa.h),)
-    $(warning [DEFEX] INTEGRITY_ENABLE)
+    $(info [DEFEX] INTEGRITY_ENABLE)
     INTEGRITY_ENABLE=true
 endif
 
