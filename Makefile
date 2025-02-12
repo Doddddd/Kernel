@@ -865,6 +865,27 @@ KBUILD_CFLAGS += -Os
 KBUILD_RUSTFLAGS += -Copt-level=s
 endif
 
+KBUILD_CFLAGS	+= -mllvm -polly \
+				-mllvm -polly-run-inliner \
+				-mllvm -polly-ast-use-context \
+				-mllvm -polly-detect-keep-going \
+				-mllvm -polly-invariant-load-hoisting \
+				-mllvm -polly-vectorizer=stripmine
+ifeq ($(shell [ -n "$(CONFIG_CLANG_VERSION)" ] && [ $(CONFIG_CLANG_VERSION) -ge 130000 ] && echo 1 || echo 0),1)
+KBUILD_CFLAGS	+= -mllvm -polly-loopfusion-greedy=1 \
+				-mllvm -polly-reschedule=1 \
+				-mllvm -polly-postopts=1 \
+				-mllvm -polly-num-threads=0 \
+				-mllvm -polly-omp-backend=LLVM \
+				-mllvm -polly-scheduling=dynamic \
+				-mllvm -polly-scheduling-chunksize=1
+else
+KBUILD_CFLAGS	+= -mllvm -polly-opt-fusion=max
+endif
+ifdef CONFIG_LD_DEAD_CODE_DATA_ELIMINATION
+KBUILD_CFLAGS	+= -mllvm -polly-run-dce
+endif
+
 # Always set `debug-assertions` and `overflow-checks` because their default
 # depends on `opt-level` and `debug-assertions`, respectively.
 KBUILD_RUSTFLAGS += -Cdebug-assertions=$(if $(CONFIG_RUST_DEBUG_ASSERTIONS),y,n)
