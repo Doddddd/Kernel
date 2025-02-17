@@ -4,10 +4,10 @@ set -e
 
 TIME=$(date +%s)
 
-if [[ -d "$HOME/tool/Clang/r530567" ]]; then
-    export PATH=$HOME/tool/Clang/r530567/bin:$PATH
+if [[ -d "$HOME/tool/Clang/r547379" ]]; then
+    export PATH=$HOME/tool/Clang/r547379/bin:$PATH
 else
-    echo "缺少 Clang r530567"
+    echo "缺少 Clang r547379"
     exit 1
 fi
 
