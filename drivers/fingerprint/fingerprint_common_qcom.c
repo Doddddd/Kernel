@@ -58,7 +58,7 @@ int cpu_speedup_enable(struct boosting_config *boosting)
 #if defined(CONFIG_CPU_FREQ_LIMIT) || defined(CONFIG_CPU_FREQ_LIMIT_USERSPACE)
 	if (boosting->min_cpufreq_limit) {
 		pr_debug("%s\n", __func__);
-		pm_qos_add_request(&boosting->pm_qos, PM_QOS_CPU_DMA_LATENCY, 0);
+		cpu_latency_qos_add_request(&boosting->pm_qos, 0);
 		retval = set_freq_limit(FINGER_ID, boosting->min_cpufreq_limit);
 		if (retval)
 			pr_err("booster start failed. (%d)\n", retval);
@@ -79,7 +79,7 @@ int cpu_speedup_disable(struct boosting_config *boosting)
 		retval = set_freq_limit(FINGER_ID, LIMIT_RELEASE);
 		if (retval)
 			pr_err("booster stop failed. (%d)\n", retval);
-		pm_qos_remove_request(&boosting->pm_qos);
+		cpu_latency_qos_remove_request(&boosting->pm_qos);
 	}
 #else
 	pr_debug("FP_CPU_SPEEDUP does not supported\n");

@@ -143,7 +143,7 @@ struct qfs4008_drvdata {
 };
 
 #ifdef CONFIG_BATTERY_SAMSUNG
-extern unsigned int lpcharge;
+unsigned int lpcharge = 0;
 #endif
 
 struct debug_logger *g_logger;
